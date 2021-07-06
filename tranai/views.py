@@ -5,7 +5,7 @@ from datetime import datetime
 from .models import Translation
 
 def all_translations(request):
-  
+  pass
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
   name = 'John'
@@ -13,7 +13,6 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
   # conver month from naem to number
   month_number = list(calendar.month_name).index(month)
   month_number = int(month_number)
-
   # 
   cal = HTMLCalendar().formatmonth(year, month_number)
   # get current year
