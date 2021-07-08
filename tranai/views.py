@@ -2,10 +2,35 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Translation
+from django.http import HttpResponseRedirect
+from .models import Translation, Document
+from .forms import DocumentForm
+
+def show_document(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  return render(request, 'tranai/show_document.html', {'document': document})
+
+def list_documents(request):
+  document_list = Document.objects.all()
+  return render(request, 'tranai/document.html', {'document_list': document_list})
+
+def add_document(request):
+  submitted = False
+  if request.method == 'POST':
+    form = DocumentForm(request.POST)
+    # validation
+    if form.is_valid():
+      form.save()
+      return  HttpResponseRedirect('/add_document?submitted=True')
+  else:
+    form = DocumentForm
+    if 'submitted' in request.GET:
+        submitted = True
+  return render(request, 'tranai/add_document.html', {'form': form, 'submitted': submitted})
 
 def all_translations(request):
-  pass
+  translation_list = Translation.objects.all()
+  return render(request, 'tranai/translation_list.html', {'translation_list': translation_list})
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
   name = 'John'

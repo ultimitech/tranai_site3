@@ -2,8 +2,41 @@
 
 {% block content %}
 
-  <h1>Translations</h1>
- 
-  
-
+<center><h2>All Translations</h2></center>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Language</th>
+      <th scope="col">Translated Title</th>
+      <th scope="col">English Translation</th>
+      <th scope="col">Description</th>
+      <th scope="col">Block Count</th>
+      <th scope="col">Sub-block Count</th>
+      <th scope="col">Sentence Count</th>
+      <th scope="col">Transcription</th>
+      <th scope="col">Lookup Imported</th>
+      <th scope="col">Document</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for translation in translation_list %}
+    <tr>
+      <th scope="row"><a href="">{{ translation.id }}</a></th>
+      <td>{{ translation.lan }}</td>
+      <td>{{ translation.tran_title }}</td>
+      <td>{{ translation.eng_tran }}</td>
+      <td>{{ translation.descrip }}</td>
+      <td>{{ translation.blkc }}</td>
+      <td>{{ translation.subc }}</td>
+      <td>{{ translation.senc }}</td>
+      <td>{{ translation.xcrip }}</td>
+      <td>{{ translation.li }}</td>
+      <td>{{ translation.document }}</td>
+      <td>actions</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+
+<center><h2>All Documents</h2></center>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Day</th>
+      <th scope="col">Title</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for document in document_list %}
+    <tr>
+      <th scope="row"><a href="{% url 'show-document' document.id %}">{{ document.id }}</a></th>
+      <td>{{ document.dod }}</td>
+      <td>{{ document.tod }}</td>
+      <td>{{ document.dow }}</td>
+      <td>{{ document.title }}</td>
+      <td>actions</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+{% endblock %}
