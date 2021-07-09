@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
 # from django.utils.translation import gettext as _
 
 class Document(models.Model):
@@ -35,6 +36,10 @@ class Document(models.Model):
   def __str__(self):
     return self.title
 
+# class DocumentSerializer(serializers.ModelSerializer):
+#   class Meta:
+#     model = Document
+#     fields = ('id', 'tod', 'dow', 'title', 'descriptor')
 
 class User(models.Model):
   email = models.EmailField('Email')
@@ -77,6 +82,10 @@ class Translation(models.Model):
   def __str__(self):
     return self.tran_title
 
+class TranslationSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Translation
+    fields = ('id', 'lan', 'tran_title', 'descrip', 'blkc', 'subc', 'senc', 'xcrip', 'li', 'pubdate', 'version', 'document', 'eng_tran')
 
 # class Task(models.Model):
 #   role =

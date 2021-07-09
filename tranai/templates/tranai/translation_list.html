@@ -23,7 +23,7 @@
   <tbody>
 {% for translation in translation_list %}
     <tr>
-      <th scope="row"><a href="">{{ translation.id }}</a></th>
+      <th scope="row"><a href="{% url 'show-translation' translation.id %}">{{ translation.id }}</th>
       <td>{{ translation.lan }}</td>
       <td>{{ translation.tran_title }}</td>
       <td>{{ translation.eng_tran }}</td>

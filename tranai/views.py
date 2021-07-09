@@ -3,8 +3,34 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect
-from .models import Translation, Document
+from .models import Translation, Document, TranslationSerializer
 from .forms import DocumentForm
+from rest_framework import viewsets
+
+class DocumentViewSet(viewsets.ModelViewSet):
+  # serializer_class = DocumentSerializer
+  # permission_classes = (permissions.IsAuthenticated, AccountPermission)
+
+  def get_queryset(self):
+    # queryset = Document.objects.all()
+    return Document.objects.filter(document=self.kwargs['document_pk'])
+
+class TranslationViewSet(viewsets.ModelViewSet):
+  serializer_class = TranslationSerializer
+  # permission_classes = (permissions.IsAuthenticated, AccountPermission)
+
+  def get_queryset(self):
+    # return Translation.objects.filter(translation=self.kwargs['translation_pk'])
+    return Translation.objects.filter(translation=self.kwargs['pk'])
+
+def show_translation(request, document_id, translation_id):
+  document = Document.objects.get(pk=document_id)
+  translation = Translation.objects.get(pk=translation_id)
+  return render(request, 'tranai/show_translation.html', {'document': document, 'translation': translation})
+
+def update_document(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  return render(request, 'tranai/show_document.html', {'document': document})
 
 def show_document(request, document_id):
   document = Document.objects.get(pk=document_id)
