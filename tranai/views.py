@@ -10,11 +10,11 @@ def show_document(request, document_id):
   document = Document.objects.get(pk=document_id)
   return render(request, 'tranai/show_document.html', {'document': document})
 
-def list_documents(request):
+def index_documents(request):
   document_list = Document.objects.all()
   return render(request, 'tranai/document.html', {'document_list': document_list})
 
-def add_document(request):
+def create_document(request):
   submitted = False
   if request.method == 'POST':
     form = DocumentForm(request.POST)
