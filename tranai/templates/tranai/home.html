@@ -1,15 +1,20 @@
 {% extends 'tranai/base.html' %}
+{% load static %}
 
 {% block content %}
-<center>
-  <h1>Hello {{ name }}! Events For {{ month }} {{ year }}</h1>
-  
-  As of 
-  <br/>
-  
-  {{cal|safe}}
-  <br/><br/><br/><br/>
-  Copyright (c) {{current_year}}
-  
-  </center>
+<center><img src="{% static 'tranai/home_top.png' %}"></center><br>
+<!-- <div class="center jumbotron alert-info"> -->
+<!-- <div class="center jumbotron bg-light"> -->
+<!-- <div class="center jumbotron bg-warning"> -->
+<div class="center jumbotron bg2">
+<h2>Business Systems Integration</h2>
+<!-- <h3>(formerly TODPROOF)</h3> -->
+<!-- <h4>A translator’s tool for new translations. Please click <a href=''>Login</a> to continue.</h4> -->
+<!-- <img src="assets/MH_Banner_Left.png"> -->
+<!-- <img src="assets/mht.webp"> -->
+<!-- <img src="assets/mht2.png"> -->
+<p>The system is a Web based application software that enables your business to build its own, unique business management system processes, inline with requirements of ISO 9001, ISO 14001, ISO 22001, OHSAS 18001 and others. This framework, including ISO and OHSAS specific manual and procedures as well as flow diagrams and documents, will provide building blocks facilitating the development and populating of an online system. The electronic framework will allow for the conversion of the current business processes into PDF based systems running on the company server or Intranet.</p>
+<h4>Business Management System</h4>
+</div>
+<center><img src="{% static 'tranai/home_bottom.png' %}"></center><br>
 {% endblock %}

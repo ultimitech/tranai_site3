@@ -106,7 +106,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+# STATICFILES_DIR = ('/c/Users/sesterh/django/tranai_site3/tranai_site3/static',)
+# STATIC_ROOT = '/Users/sesterh/django/tranai_site3/tranai_site3/static/'
 STATIC_URL = '/static/'
 
 # Default primary key field type

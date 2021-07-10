@@ -70,7 +70,7 @@ class Translation(models.Model):
   li = models.BooleanField('Lookup imported (eng) / translate contributions randomized (oth)')
   pubdate = models.DateField('Publication date')
   version = models.CharField('Version', max_length=20)
-  document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE,)
+  document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE, related_name='translations')
   eng_tran = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE,)
   # Translation.Document.title?
   # email = models.EmailField('email')

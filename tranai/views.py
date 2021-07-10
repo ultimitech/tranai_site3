@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from .models import Translation, Document, TranslationSerializer
 from .forms import DocumentForm
 from rest_framework import viewsets
+import sys
 
 class DocumentViewSet(viewsets.ModelViewSet):
   # serializer_class = DocumentSerializer
@@ -34,7 +35,9 @@ def update_document(request, document_id):
 
 def show_document(request, document_id):
   document = Document.objects.get(pk=document_id)
-  return render(request, 'tranai/show_document.html', {'document': document})
+  translations = document.translations
+  # print (sys.stderr, translations)
+  return render(request, 'tranai/show_document.html', {'document': document, 'translations': translations})
 
 def index_documents(request):
   document_list = Document.objects.all()
