@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from .models import Translation, Document, TranslationSerializer
 from .forms import DocumentForm
 from rest_framework import viewsets
-import sys
+# import sys
 
 class DocumentViewSet(viewsets.ModelViewSet):
   # serializer_class = DocumentSerializer

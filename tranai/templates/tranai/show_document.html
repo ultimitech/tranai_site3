@@ -1,24 +1,28 @@
 {% extends 'tranai/base.html' %}
 
 {% block content %}
-<center>
-  <h1>{{ document }}</h1>
-  <br>
-  {{ document.dod }}<br>
-  {{ document.tod }}<br>
-  {{ document.dow }}<br>
-  {{ document.title }}<br>
-  {{ document.descrip }}<br>
-  </center>
-
-  {% for translation in document.translations.all %}
-    {{ translation.tran_title }}
-  {% endfor %}
+<!-- <center> -->
+  <h2>Document: <i>{{ document }}</i></h2>
+  <!-- <br> -->
+  <strong>ID:</strong>&nbsp;&nbsp;{{ document.id }}<br>
+  <strong>Date Of Delivery:</strong>&nbsp;&nbsp;{{ document.dod }}<br>
+  <strong>Time Of Day:</strong>&nbsp;&nbsp;{{ document.tod }}<br>
+  <strong>Day Of Week:</strong>&nbsp;&nbsp;{{ document.dow }}<br>
+  <strong>Descriptor:</strong>&nbsp;&nbsp;{{ document.descriptor }}<br>
+  <strong>Title:</strong>&nbsp;&nbsp;<i>{{ document.title }}</i><br>
+  <!-- </center> -->
+  <hr>
+  <button class="btn btn-outline-primary btn-sm">Edit</button>
+  <button class="btn btn-outline-danger btn-sm">Delete</button>
+  <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
+  &nbsp;
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a>
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Translation</a><br>
   <center><h2>Translations</h2></center>
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">ID</th>
         <th scope="col">Language</th>
         <th scope="col">Translated Title</th>
         <th scope="col">Version</th>

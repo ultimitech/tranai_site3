@@ -12,7 +12,10 @@
     {% csrf_token %}
 
     {{ form.as_p }}
-    <input type="submit" value="Submit" class="btn btn-secondary">
+    <input type="submit" value="Create Message" class="btn btn-secondary">
+    <a class="btn btn-warning" href="{% url 'index-documents' %}" role="button">Cancel Message</a>
+    <!-- <button type="button" class="btn btn-warning">Cancel Message</button> -->
+    <!-- <input type="button" value="Cancel Message" class="btn btn-warning"> -->
   </form>
   {% endif %}
   </center>

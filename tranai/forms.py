@@ -19,10 +19,10 @@ class DocumentForm(ModelForm):
 
     widgets = {
       # 'dod': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Date Of Delivery'}),
-      'dod': forms.TextInput(attrs={'class':'form-control', 'placeholder':''}),
-      'tod': forms.TextInput(attrs={'class':'form-control'}),
-      'dow': forms.TextInput(attrs={'class':'form-control'}),
-      'title': forms.TextInput(attrs={'class':'form-control'}),
-      'descriptor': forms.TextInput(attrs={'class':'form-control'}),
+      # 'dod': forms.TextInput(attrs={'class':'form-control', 'placeholder':''}),
+      # 'tod': forms.TextInput(attrs={'class':'form-control'}),
+      # 'dow': forms.TextInput(attrs={'class':'form-control'}),
+      'title': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Title'}),
+      'descriptor': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Descriptor'}),
       #  forms.EmailInput(attrs={'class':'form-control'}),
     }
