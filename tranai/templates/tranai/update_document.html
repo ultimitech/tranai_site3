@@ -1,0 +1,23 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+<center>
+  <h1>Update Document</h1>
+  <br/>
+  <!-- <br/> -->
+  {% if submitted %}
+    Your Document was updated successfully!
+  {% else %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary">Update Document</button>
+    <a class="btn btn-warning" href="{% url 'index-documents' %}" role="button">Cancel Update</a>
+    <!-- <button type="button" class="btn btn-warning">Cancel Message</button> -->
+    <!-- <input type="button" value="Cancel Message" class="btn btn-warning"> -->
+  </form>
+  {% endif %}
+  </center>
+{% endblock %}

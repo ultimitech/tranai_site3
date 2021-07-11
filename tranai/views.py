@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from .models import Translation, Document, TranslationSerializer
 from .forms import DocumentForm
 from rest_framework import viewsets
@@ -31,7 +32,21 @@ def show_translation(request, document_id, translation_id):
 
 def update_document(request, document_id):
   document = Document.objects.get(pk=document_id)
+  form = DocumentForm(request.POST or None, instance=document)
+  if form.is_valid():
+    form.save()
+    return redirect('index-documents')
+  return render(request, 'tranai/update_document.html', {'document': document, 'form': form})
+
+def destroy_document(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  document.delete()
   return render(request, 'tranai/show_document.html', {'document': document})
+
+def delete_document(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  document.delete()
+  return redirect('index-documents')
 
 def show_document(request, document_id):
   document = Document.objects.get(pk=document_id)
@@ -40,17 +55,25 @@ def show_document(request, document_id):
   return render(request, 'tranai/show_document.html', {'document': document, 'translations': translations})
 
 def index_documents(request):
-  document_list = Document.objects.all()
+  document_list = Document.objects.all().order_by('title')
   return render(request, 'tranai/document.html', {'document_list': document_list})
 
 def create_document(request):
   submitted = False
   if request.method == 'POST':
     form = DocumentForm(request.POST)
+    # form = DocumentForm(request.POST or None)
     # validation
     if form.is_valid():
       form.save()
-      return  HttpResponseRedirect('/add_document?submitted=True')
+      messages.success(request, ('Document created successfully.'))
+      # return render(request, 'home.html', {})
+      return redirect('/documents')
+    else:
+      pass
+      # messages.error
+      # return  HttpResponseRedirect('/add_document?submitted=True')
+      # return  HttpResponseRedirect('/create_document?submitted=True')
   else:
     form = DocumentForm
     if 'submitted' in request.GET:
