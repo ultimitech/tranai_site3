@@ -12,8 +12,8 @@
   <strong>Title:</strong>&nbsp;&nbsp;<i>{{ document.title }}</i><br>
   <!-- </center> -->
   <hr>
-  <button class="btn btn-outline-primary btn-sm">Edit</button>
-  <button class="btn btn-outline-danger btn-sm">Delete</button>
+  <a class="btn btn-outline-primary btn-sm" href="{% url 'update-document' document.id %}">Update</a>
+  <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-document' document.id %}">Delete</a>
   <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
   &nbsp;
   <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a>

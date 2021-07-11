@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from .models import Translation, Document, TranslationSerializer
 from .forms import DocumentForm
@@ -30,22 +30,48 @@ def show_translation(request, document_id, translation_id):
   translation = Translation.objects.get(pk=translation_id)
   return render(request, 'tranai/show_translation.html', {'document': document, 'translation': translation})
 
+# def update_document(request, document_id):
+#   document = Document.objects.get(pk=document_id)
+#   form = DocumentForm(request.POST or None, instance=document)
+#   if form.is_valid():
+#     form.save()
+#     return redirect('index-documents')
+#   return render(request, 'tranai/update_document.html', {'document': document, 'form': form})
+
 def update_document(request, document_id):
   document = Document.objects.get(pk=document_id)
-  form = DocumentForm(request.POST or None, instance=document)
-  if form.is_valid():
-    form.save()
-    return redirect('index-documents')
-  return render(request, 'tranai/update_document.html', {'document': document, 'form': form})
+  form = DocumentForm(initial={'dod': document.dod, 'tod': document.tod, 'dow': document.dow, 'title': document.title, 'descriptor': document.descriptor})
+  if request.method == 'POST':
+    form = DocumentForm(request.POST, instance=document)
+    if form.is_valid():
+      try:
+        form.save()
+        model = form.instance
+        print('Document id=' + document_id + ' updated successfully')
+        return redirect('index-documents')
+      except Exception as e:
+        print('Document update failure: ' + e)
+        pass
+  return render(request, 'tranai/update_document.html', {'form': form})
 
 def destroy_document(request, document_id):
   document = Document.objects.get(pk=document_id)
   document.delete()
   return render(request, 'tranai/show_document.html', {'document': document})
 
+# def delete_document(request, document_id):
+#   document = Document.objects.get(pk=document_id)
+#   document.delete()
+#   return redirect('index-documents')
+
 def delete_document(request, document_id):
   document = Document.objects.get(pk=document_id)
-  document.delete()
+  try:
+    document.delete()
+    print('Document delete success')
+  except Exception as e:
+    print('Document delete failure: ' + e)
+    pass
   return redirect('index-documents')
 
 def show_document(request, document_id):
@@ -59,26 +85,21 @@ def index_documents(request):
   return render(request, 'tranai/document.html', {'document_list': document_list})
 
 def create_document(request):
-  submitted = False
   if request.method == 'POST':
     form = DocumentForm(request.POST)
-    # form = DocumentForm(request.POST or None)
-    # validation
     if form.is_valid():
-      form.save()
-      messages.success(request, ('Document created successfully.'))
-      # return render(request, 'home.html', {})
-      return redirect('/documents')
-    else:
-      pass
-      # messages.error
-      # return  HttpResponseRedirect('/add_document?submitted=True')
-      # return  HttpResponseRedirect('/create_document?submitted=True')
-  else:
-    form = DocumentForm
-    if 'submitted' in request.GET:
-        submitted = True
-  return render(request, 'tranai/add_document.html', {'form': form, 'submitted': submitted})
+      try:
+        form.save()
+        model = form.instance
+        return redirect('index-documents')
+      except:
+        pass
+    # print('post')
+    # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  elif request.method == 'GET':
+    form = DocumentForm()
+    # print('get')
+    return render(request, 'tranai/add_document.html', {'form': form})
 
 def all_translations(request):
   translation_list = Translation.objects.all()

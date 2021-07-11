@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 class Document(models.Model):
   class TimeOfDay(models.TextChoices):
-    NO_TOD = ' ', _('No Time Of Day')
+    NO_TOD = 'n', _('No Time Of Day')
     SUNRISE = 's', _('Sunrise')
     BREAKFAST = 'b', _('Breakfast')
     MORNING = 'x', _('Morning')
