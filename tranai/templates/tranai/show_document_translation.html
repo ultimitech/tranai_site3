@@ -1,0 +1,62 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+<!-- <center> -->
+  <h2>Translation: <i>{{ translation }}</i></h2>
+  <!-- <br> -->
+  <strong>ID:</strong>&nbsp;&nbsp;{{ translation.id }}<br>
+  <strong>Language:</strong>&nbsp;&nbsp;{{ translation.lan }}<br>
+  <strong>Translated Title:</strong>&nbsp;&nbsp;{{ translation.tran_title }}<br>
+  <strong>English Translation:</strong>&nbsp;&nbsp;{{ translation.eng_tran }}<br>
+  <strong>Description:</strong>&nbsp;&nbsp;{{ translation.description }}<br>
+  <strong>Block Count:</strong>&nbsp;&nbsp;<i>{{ translation.blkc }}</i><br>
+  <strong>Sub-block Count:</strong>&nbsp;&nbsp;{{ translation.subc }}<br>
+  <strong>Sentence Count:</strong>&nbsp;&nbsp;{{ translation.senc }}<br>
+  <strong>Transcription:</strong>&nbsp;&nbsp;{{ translation.xcrip }}<br>
+  <strong>Translate Additions Randomized:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
+  <strong>Randomization:</strong>&nbsp;&nbsp;{{ translation.None }}<br>
+  <strong>Document:</strong>&nbsp;&nbsp;{{ translation.document }}<br>
+  <strong>Publication Date:</strong>&nbsp;&nbsp;{{ translation.pubdate }}<br>
+  <strong>Version:</strong>&nbsp;&nbsp;{{ translation.version }}<br>
+  <!-- </center> -->
+  <hr>
+  <a class="btn btn-outline-primary btn-sm" href="{% url 'update-document' document.id %}">Update</a>
+  <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-document' document.id %}">Delete</a>
+  <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
+  &nbsp;
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a>
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Translation</a><br>
+  <center><h2>Translations</h2></center>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Language</th>
+        <th scope="col">Translated Title</th>
+        <th scope="col">Version</th>
+        <th scope="col">Block Count</th>
+        <th scope="col">Sub-block Count</th>
+        <th scope="col">Sentence</th>
+        <th scope="col">Transcription</th>
+        <th scope="col">Language Imported</th>
+      </tr>
+    </thead>
+    <tbody>
+  {% for translation in document.translations.all %}
+      <tr>
+        <th scope="row"><a href="{% url 'show-document-translation' document.id translation.id %}">{{ translation.id }}</a></th>
+        <td>{{ translation.id }}</td>
+        <td>{{ translation.lan }}</td>
+        <td>{{ translation.tran_title }}</td>
+        <td>{{ translation.version }}</td>
+        <td>{{ translation.blkc }}</td>
+        <td>{{ translation.subc }}</td>
+        <td>{{ translation.senc }}</td>
+        <td>{{ translation.xcrip }}</td>
+        <td>{{ translation.li }}</td>
+        <td>actions</td>
+      </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

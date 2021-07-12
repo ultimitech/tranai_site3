@@ -5,7 +5,7 @@ from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from .models import Translation, Document, TranslationSerializer
-from .forms import DocumentForm
+from .forms import DocumentForm, TranslationForm
 from rest_framework import viewsets
 # import sys
 
@@ -25,11 +25,34 @@ class TranslationViewSet(viewsets.ModelViewSet):
     # return Translation.objects.filter(translation=self.kwargs['translation_pk'])
     return Translation.objects.filter(translation=self.kwargs['pk'])
 
-def show_translation(request, document_id, translation_id):
+# def show_translation(request, document_id, translation_id):
+#   document = Document.objects.get(pk=document_id)
+#   translation = Translation.objects.get(pk=translation_id)
+#   return render(request, 'tranai/show_translation.html', {'document': document, 'translation': translation})
+
+# def show_translation(request, translation_id):
+#   translation = Translation.objects.get(pk=translation_id)
+
+def show_document_translation(request, document_id, translation_id):
+  # return redirect('/')
+  # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  # return redirect('show')
   document = Document.objects.get(pk=document_id)
   translation = Translation.objects.get(pk=translation_id)
-  return render(request, 'tranai/show_translation.html', {'document': document, 'translation': translation})
+  return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation})
 
+def show_document_translations(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  translations = document.translations.all
+  # return redirect('/')
+  return render(request, 'tranai/show_document.html', {'document': document, 'translations': translations})
+
+def show_document(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  translations = document.translations
+  # print (sys.stderr, translations)
+  return render(request, 'tranai/show_document.html', {'document': document, 'translations': translations})
+  
 # def update_document(request, document_id):
 #   document = Document.objects.get(pk=document_id)
 #   form = DocumentForm(request.POST or None, instance=document)
@@ -83,6 +106,59 @@ def show_document(request, document_id):
 def index_documents(request):
   document_list = Document.objects.all().order_by('title')
   return render(request, 'tranai/document.html', {'document_list': document_list})
+
+# def index_translations(request):
+#   translation_list = Translation.objects.all()
+#   return render(request, 'tranai/translation_list.html', {'translation_list': translation_list})
+
+def index_translations(request):
+  # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  return render(request, 'tranai/document.html', {'document_list': document_list})
+
+def create_translation(request):
+  if request.method == 'POST':
+    form = TranslationForm(request.POST)
+    if form.is_valid():
+      try:
+        form.save()
+        model = form.instance
+        return redirect('index-translations')
+      except:
+        pass
+    # print('post')
+    # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  elif request.method == 'GET':
+    form = TranslationForm()
+    # print('get')
+    return render(request, 'tranai/add_translation.html', {'form': form})
+
+def create_document_translation(request, document_id):
+  if request.method == 'POST':
+    form = TranslationForm(request.POST)
+    if form.is_valid():
+      try:
+        # form.save()
+        translation = form.save()
+
+        
+
+        # document = Document.objects.get(pk=document_id)
+        # translation = Translation.objects.get(pk=translation_id)
+        translation = Translation.objects.get(pk=translation.id)
+        translation.document_id = document_id
+        translation.save()
+        # model = form.instance
+        # return redirect('index-translations')
+        # document
+        return render(request, 'tranai/show_document.html', {'document': document})
+      except:
+        pass
+    # print('post')
+    # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  elif request.method == 'GET':
+    form = TranslationForm()
+    # print('get')
+    return render(request, 'tranai/create_document_translation.html', {'form': form})
 
 def create_document(request):
   if request.method == 'POST':

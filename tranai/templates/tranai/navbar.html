@@ -28,6 +28,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'create-document' %}">New Document</a></li>
             <li><a class="dropdown-item" href="{% url 'create-document' %}">New User</a></li>
+            <li><a class="dropdown-item" href="{% url 'create-translation' %}">New Translation</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Help</a></li>
           </ul>
@@ -40,6 +41,12 @@
         </li> -->
         <li class="nav-item">
           <a class="nav-link" href="{% url 'index-documents' %}">Documents</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index-translations' %}">Translations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'create-translation' %}">New Translation</a>
         </li>
       </ul>
       <form class="d-flex">
