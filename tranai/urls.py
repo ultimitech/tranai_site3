@@ -1,5 +1,5 @@
 # from rest_framework_nested import routers
-from .views import DocumentViewSet, TranslationViewSet
+# from .views import DocumentViewSet, TranslationViewSet
 from django.urls import path, re_path, include
 # from django.conf.urls import include
 from . import views
