@@ -23,7 +23,7 @@ urlpatterns = [
     # path('index_documents', views.index_documents, name='index-documents'),
     path('documents/', views.index_documents, name='index-documents'),
     path('documents/<document_id>/', views.show_document, name='show-document'),
-    # path('show_document/<document_id>', views.show_document, name='show-document'),
+    # path('show_document/<document_id>', views.show_document, name='show-document'), ###########
     # path('documents/<document_id>/update', views.update_document, name='update-document'),
     path('documents/<document_id>', views.update_document, name='update-document'),
     path('documents/<document_id>', views.destroy_document, name='destroy-document'),
@@ -31,10 +31,10 @@ urlpatterns = [
     path('update_document/<document_id>', views.update_document, name='update-document'),
 
     # Translation
-    # path('translations', views.all_translations, name='list-translations'),
+    path('all_translations', views.index_all_translations, name='index-all-translations'),
     path('create_translation', views.create_translation, name='create-translation'),
-    path('translations/', views.index_translations, name='index-translations'),
-    # path('translations/<translation_id>/', views.show_translation, name='show-translation'),
+    # path('translations/', views.index_translations, name='index-translations'), ######################
+    path('translations/<translation_id>/', views.show_translation, name='show-translation'),
     path('documents/<document_id>/translations/new', views.create_document_translation, name='create-document-translation'),
     path('documents/<document_id>/translations/', views.show_document_translations, name='show-document-translations'),
     path('documents/<document_id>/translations/<translation_id>/', views.show_document_translation, name='show-document-translation'),

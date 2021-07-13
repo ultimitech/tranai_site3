@@ -14,9 +14,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'index-documents' %}">Documents</a></li>
-            <li><a class="dropdown-item" href="#">Translations</a></li>
+            <li><a class="dropdown-item" href="{% url 'index-all-translations' %}">Translations</a></li>
             <li><a class="dropdown-item" href="#">Tasks</a></li>
-            <li><a class="dropdown-item" href="#">Changes</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Users</a></li>
           </ul>
@@ -39,15 +38,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home' '2021' 'March' %}">March</a>
         </li> -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'index-documents' %}">Documents</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'index-translations' %}">Translations</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'create-translation' %}">New Translation</a>
-        </li>
+
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -122,25 +122,16 @@ def delete_document(request, document_id):
 #     # return Translation.objects.filter(translation=self.kwargs['translation_pk'])
 #     return Translation.objects.filter(translation=self.kwargs['pk'])
 
-# def index_translations(request):
-#   translation_list = Translation.objects.all()
-#   return render(request, 'tranai/translation_list.html', {'translation_list': translation_list})
+def index_all_translations(request):
+  translation_list = Translation.objects.all()
+  return render(request, 'tranai/all_translations.html', {'translation_list': translation_list})
 
 def index_translations(request):
-  # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
-  return render(request, 'tranai/document.html', {'document_list': document_list})
-
-def all_translations(request):
   translation_list = Translation.objects.all()
-  return render(request, 'tranai/translation_list.html', {'translation_list': translation_list})
+  return render(request, 'tranai/all_translations.html', {'translation_list': translation_list})
 
-# def show_translation(request, document_id, translation_id):
-#   document = Document.objects.get(pk=document_id)
-#   translation = Translation.objects.get(pk=translation_id)
-#   return render(request, 'tranai/show_translation.html', {'document': document, 'translation': translation})
-
-# def show_translation(request, translation_id):
-#   translation = Translation.objects.get(pk=translation_id)
+def show_translation(request, translation_id):
+  translation = Translation.objects.get(pk=translation_id)
 
 def create_translation(request):
   if request.method == 'POST':
