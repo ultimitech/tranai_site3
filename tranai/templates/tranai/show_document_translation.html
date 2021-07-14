@@ -23,10 +23,11 @@
   <hr>
   <a class="btn btn-outline-primary btn-sm" href="{% url 'update-document-translation' document.id translation.id %}">Edit</a>
   <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-document-translation' document.id translation.id %}">Delete</a>
-  <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
+  <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Translations</a>
   &nbsp;
-  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a>
-  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document-translation' document.id %}">New Translation</a><br><br>
+  <!-- <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a> -->
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document-translation' document.id %}">New Translation</a>
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-task' %}">New Task</a>
   <center><h2>Tasks</h2></center>
   <table class="table table-hover">
     <thead>
@@ -56,30 +57,7 @@
       </tr>
     </thead>
     <tbody>
-  <!-- {% for task in translation.tasks.all %}
-      <tr>
-        <th scope="row"><a href="{% url 'show-translation-task' translation.id task.id %}">{{ task.id }}</a></th>
-        <td>{{ task.id }}</td>
-        <td>{{ task.role }}</td>
-        <td>{{ task.active }}</td>
-        <td>{{ task.status }}</td>
-        <td>{{ task.ci }}</td>
-        <td>{{ task.tcs }}</td>
-        <td>{{ task.ccs }}</td>
-        <td>{{ task.vcs }}</td>
-        <td>{{ task.ct }}</td>
-        <td>{{ task.vt }}</td>
-        <td>{{ task.majtes }}</td>
-        <td>{{ task.tietes }}</td>
-        <td>{{ task.ccs_m }}</td>
-        <td>{{ task.ccs_k }}</td>
-        <td>{{ task.vcs_a }}</td>
-        <td>{{ task.vcs_c }}</td>
-        <td>{{ task.vcs_t }}</td>
-        <td>{{ task.vcs_p }}</td>
-        <td>actions</td>
-      </tr>
-  {% endfor %} -->
+
     </tbody>
   </table>
 {% endblock %}

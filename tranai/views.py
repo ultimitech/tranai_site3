@@ -4,8 +4,8 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from .models import Translation, Document
-from .forms import DocumentForm, TranslationForm
+from .models import Task, Translation, Document
+from .forms import DocumentForm, TranslationForm, TaskForm
 # from rest_framework import viewsets
 # import sys
 
@@ -141,22 +141,22 @@ def show_translation(request, translation_id):
   document = translation.document
   return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation})
 
-def create_translation(request):
-  if request.method == 'POST':
-    form = TranslationForm(request.POST)
-    if form.is_valid():
-      try:
-        form.save()
-        model = form.instance
-        return redirect('index-all-translations')
-      except:
-        pass
-    # print('post')
-    # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
-  elif request.method == 'GET':
-    form = TranslationForm()
-    # print('get')
-    return render(request, 'tranai/add_translation.html', {'form': form})
+# def create_translation(request):
+#   if request.method == 'POST':
+#     form = TranslationForm(request.POST)
+#     if form.is_valid():
+#       try:
+#         form.save()
+#         model = form.instance
+#         return redirect('index-all-translations')
+#       except:
+#         pass
+#     # print('post')
+#     # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+#   elif request.method == 'GET':
+#     form = TranslationForm()
+#     # print('get')
+#     return render(request, 'tranai/add_translation.html', {'form': form})
 
 
 def show_document_translation(request, document_id, translation_id):
@@ -237,3 +237,59 @@ def delete_document_translation(request, document_id, translation_id):
 # Task
 ###############################################################################
 
+def create_task(request):
+  if request.method == 'POST':
+    form = TaskForm(request.POST)
+    if form.is_valid():
+      try:
+        task = form.save()
+        model = form.instance
+        # return redirect('index-documents')
+        return redirect(f'/tasks/{task.id}/')
+      except:
+        pass
+    # print('post')
+    # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  elif request.method == 'GET':
+    form = TaskForm()
+    # print('get')
+    return render(request, 'tranai/create_task.html', {'form': form})
+
+def show_task(request, task_id):
+  task = Task.objects.get(pk=task_id)
+  return render(request, 'tranai/show_task.html', {'task': task})
+
+def update_task(request, task_id):
+  task = Task.objects.get(pk=task_id)
+  form = TaskForm(initial={'role': task.role, 'active': task.active, 'ci': task.ci, 'place': task.place, 'translation': task.translation, 'user': task.user, 'status': task.status, 'ccs': task.css, 'ccs_k': task.ccs_k, 'ccs_m': task.ccs_m, 'vcs': task.vcs, 'vcs_a': task.vcs_a, 'vcs_c': task.vcs_c, 'vcs_t': task.vcs_t, 'vcs_p': task.vcs_p, 'ct': task.ct, 'vt': task.vt, 'majtes': task.majtes, 'tietes': task.tietes, 'notes': task.notes})
+  if request.method == 'POST':
+    form = TaskForm(request.POST, instance=task)
+    if form.is_valid():
+      try:
+        form.save()
+        model = form.instance
+        print('Task id=' + task_id + ' updated successfully')
+        return redirect(f'/tasks/{task_id}/')
+      except Exception as e:
+        print('Task update failure: ' + e)
+        pass
+    else:
+      print('form is not valid')
+  elif request.method == 'GET':
+    form = TaskForm(initial={'role': task.role, 'active': task.active, 'ci': task.ci, 'place': task.place, 'translation': task.translation, 'user': task.user, 'status': task.status, 'ccs': task.css, 'ccs_k': task.ccs_k, 'ccs_m': task.ccs_m, 'vcs': task.vcs, 'vcs_a': task.vcs_a, 'vcs_c': task.vcs_c, 'vcs_t': task.vcs_t, 'vcs_p': task.vcs_p, 'ct': task.ct, 'vt': task.vt, 'majtes': task.majtes, 'tietes': task.tietes, 'notes': task.notes})
+    return render(request, 'tranai/update_task.html', {'task': task, 'form': form})
+
+def delete_task(request, task_id):
+  task = Task.objects.get(pk=task_id)
+  try:
+    task.delete()
+    print('Task delete success')
+  except Exception as e:
+    print('Task delete failure: ' + e)
+    pass
+  return redirect('index-tasks')
+  # return redirect(f'/tasks/')
+
+def index_tasks(request):
+  task_list = Task.objects.all()
+  return render(request, 'tranai/index_tasks.html', {'task_list': task_list})

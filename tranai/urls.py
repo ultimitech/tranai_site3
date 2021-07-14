@@ -32,7 +32,7 @@ urlpatterns = [
 
     # Translation
     path('all_translations', views.index_all_translations, name='index-all-translations'),
-    path('create_translation', views.create_translation, name='create-translation'),
+    # path('create_translation', views.create_translation, name='create-translation'),
     # path('translations/', views.index_translations, name='index-translations'), ######################
     path('translations/<translation_id>/', views.show_translation, name='show-translation'),
     path('documents/<document_id>/translations/new', views.create_document_translation, name='create-document-translation'),
@@ -41,6 +41,15 @@ urlpatterns = [
     path('documents/<document_id>/translations/<translation_id>/edit', views.update_document_translation, name='update-document-translation'),
     path('documents/<document_id>/translations/<translation_id>/delete', views.delete_document_translation, name='delete-document-translation'),
     # path('documents/<document_id>/translations/<translation_id>', views.show_translation, name='show-translation'),
+
+    # Task
+    path('tasks/new', views.create_task, name='create-task'),
+    path('tasks/<task_id>/', views.show_task, name='show-task'),
+    path('tasks/<task_id>/edit', views.update_task, name='update-task'),
+    path('delete_task/<task_id>', views.delete_task, name='delete-task'),
+    path('tasks/', views.index_tasks, name='index-tasks'),
+
+
 
     # re_path(r'^', include(router.urls)),
     # re_path(r'^', include(documents_router.urls)),
