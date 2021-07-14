@@ -6,7 +6,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">ID</th>
+      <th scope="col">Id</th>
       <th scope="col">Date</th>
       <th scope="col">Time</th>
       <th scope="col">Day</th>
@@ -23,8 +23,8 @@
       <td>{{ document.tod }}</td>
       <td>{{ document.dow }}</td>
       <td>{{ document.title }}</td>
-      <td><a href="{% url 'update-document' document.id %}">Update</a></td>
-      <td><a href="{% url 'delete-document' document.id %}">Delete</a></td>
+      <!-- <td><a href="{% url 'update-document' document.id %}">Update</a></td>
+      <td><a href="{% url 'delete-document' document.id %}">Delete</a></td> -->
     </tr>
 {% endfor %}
   </tbody>

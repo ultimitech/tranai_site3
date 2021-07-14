@@ -31,7 +31,7 @@ class DocumentForm(ModelForm):
 class TranslationForm(ModelForm):
   class Meta:
     model = Translation
-    fields = ('lan', 'tran_title', 'eng_tran', 'descrip', 'blkc', 'subc', 'senc', 'xcrip', 'li', 'pubdate', 'version', 'document')
+    fields = ('lan', 'tran_title', 'eng_tran', 'descrip', 'blkc', 'subc', 'senc', 'xcrip', 'li', 'pubdate', 'version')
     labels = {
       'lan': 'Language',
       'tran_title': 'Translated Title',
@@ -44,7 +44,7 @@ class TranslationForm(ModelForm):
       'li': 'Lookup Imported',
       'pubdate': 'Publication Date',
       'version': 'Version',
-      'document': 'Document',
+      # 'document': 'Document',
       #  forms.EmailInput(attrs={'class':'form-control'}),
     }
 

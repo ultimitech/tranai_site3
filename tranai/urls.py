@@ -38,6 +38,8 @@ urlpatterns = [
     path('documents/<document_id>/translations/new', views.create_document_translation, name='create-document-translation'),
     path('documents/<document_id>/translations/', views.show_document_translations, name='show-document-translations'),
     path('documents/<document_id>/translations/<translation_id>/', views.show_document_translation, name='show-document-translation'),
+    path('documents/<document_id>/translations/<translation_id>/edit', views.update_document_translation, name='update-document-translation'),
+    path('documents/<document_id>/translations/<translation_id>/delete', views.delete_document_translation, name='delete-document-translation'),
     # path('documents/<document_id>/translations/<translation_id>', views.show_translation, name='show-translation'),
 
     # re_path(r'^', include(router.urls)),

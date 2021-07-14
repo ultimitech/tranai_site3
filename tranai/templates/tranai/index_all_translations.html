@@ -6,10 +6,10 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Id</th>
       <th scope="col">Language</th>
       <th scope="col">Translated Title</th>
-      <th scope="col">English Translation</th>
+      <th scope="col">ENG Translation</th>
       <th scope="col">Description</th>
       <th scope="col">Block Count</th>
       <th scope="col">Sub-block Count</th>
@@ -17,7 +17,8 @@
       <th scope="col">Transcription</th>
       <th scope="col">Lookup Imported</th>
       <th scope="col">Document</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -34,7 +35,8 @@
       <td>{{ translation.xcrip }}</td>
       <td>{{ translation.li }}</td>
       <td>{{ translation.document }}</td>
-      <td>actions</td>
+      <td><a href="{% url 'update-document-translation' translation.document.id translation.id %}">Edit</a></td>
+      <td><a href="{% url 'delete-document-translation' translation.document.id translation.id %}">Delete</a></td>
     </tr>
 {% endfor %}
   </tbody>

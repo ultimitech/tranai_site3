@@ -2,9 +2,10 @@
 
 {% block content %}
 <!-- <center> -->
-  <h2>Translation: <i>{{ translation }}</i></h2>
+  <!-- <h2>Translation: <i>{{ translation }}</i></h2> -->
+  <h2>Translation</h2>
   <!-- <br> -->
-  <strong>ID:</strong>&nbsp;&nbsp;{{ translation.id }}<br>
+  <strong>Id:</strong>&nbsp;&nbsp;{{ translation.id }}<br>
   <strong>Language:</strong>&nbsp;&nbsp;{{ translation.lan }}<br>
   <strong>Translated Title:</strong>&nbsp;&nbsp;{{ translation.tran_title }}<br>
   <strong>English Translation:</strong>&nbsp;&nbsp;{{ translation.eng_tran }}<br>
@@ -20,43 +21,65 @@
   <strong>Version:</strong>&nbsp;&nbsp;{{ translation.version }}<br>
   <!-- </center> -->
   <hr>
-  <a class="btn btn-outline-primary btn-sm" href="{% url 'update-document' document.id %}">Update</a>
-  <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-document' document.id %}">Delete</a>
+  <a class="btn btn-outline-primary btn-sm" href="{% url 'update-document-translation' document.id translation.id %}">Update</a>
+  <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-document-translation' document.id translation.id %}">Delete</a>
   <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
   &nbsp;
   <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a>
-  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Translation</a><br>
-  <center><h2>Translations</h2></center>
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Translation</a><br><br>
+  <center><h2>Tasks</h2></center>
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Language</th>
-        <th scope="col">Translated Title</th>
-        <th scope="col">Version</th>
-        <th scope="col">Block Count</th>
-        <th scope="col">Sub-block Count</th>
-        <th scope="col">Sentence</th>
-        <th scope="col">Transcription</th>
-        <th scope="col">Language Imported</th>
+        <th scope="col">Id</th>
+        <th scope="col">Role</th>
+        <th scope="col">Active</th>
+        <th scope="col">Status</th>
+        <th scope="col">CI</th>
+        <th scope="col">Place</th>
+        <th scope="col">TCs</th>
+        <th scope="col">CCs</th>
+        <th scope="col">VCs</th>
+        <th scope="col">ECs</th>
+        <th scope="col">TotCs</th>
+        <th scope="col">#Sens</th>
+        <th scope="col">VT</th>
+        <th scope="col">CT</th>
+        <th scope="col">TotT</th>
+        <th scope="col">M TEs</th>
+        <th scope="col">T TEs</th>
+        <th scope="col">Z TEs</th>
+        <th scope="col">N TEs</th>
+        <th scope="col">TotTEs</th>
+        <th scope="col">User</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
-  {% for translation in document.translations.all %}
+  <!-- {% for task in translation.tasks.all %}
       <tr>
-        <th scope="row"><a href="{% url 'show-document-translation' document.id translation.id %}">{{ translation.id }}</a></th>
-        <td>{{ translation.id }}</td>
-        <td>{{ translation.lan }}</td>
-        <td>{{ translation.tran_title }}</td>
-        <td>{{ translation.version }}</td>
-        <td>{{ translation.blkc }}</td>
-        <td>{{ translation.subc }}</td>
-        <td>{{ translation.senc }}</td>
-        <td>{{ translation.xcrip }}</td>
-        <td>{{ translation.li }}</td>
+        <th scope="row"><a href="{% url 'show-translation-task' translation.id task.id %}">{{ task.id }}</a></th>
+        <td>{{ task.id }}</td>
+        <td>{{ task.role }}</td>
+        <td>{{ task.active }}</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.ci }}</td>
+        <td>{{ task.tcs }}</td>
+        <td>{{ task.ccs }}</td>
+        <td>{{ task.vcs }}</td>
+        <td>{{ task.ct }}</td>
+        <td>{{ task.vt }}</td>
+        <td>{{ task.majtes }}</td>
+        <td>{{ task.tietes }}</td>
+        <td>{{ task.ccs_m }}</td>
+        <td>{{ task.ccs_k }}</td>
+        <td>{{ task.vcs_a }}</td>
+        <td>{{ task.vcs_c }}</td>
+        <td>{{ task.vcs_t }}</td>
+        <td>{{ task.vcs_p }}</td>
         <td>actions</td>
       </tr>
-  {% endfor %}
+  {% endfor %} -->
     </tbody>
   </table>
 {% endblock %}
