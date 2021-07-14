@@ -1,8 +1,9 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
-from rest_framework import serializers
+# from rest_framework import serializers
 # from django.utils.translation import gettext as _
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 class Document(models.Model):
   class TimeOfDay(models.TextChoices):
@@ -27,14 +28,17 @@ class Document(models.Model):
   dod = models.DateField('Date Of Delivery')
   # tod = models.CharField('Time Of Day', max_length=60)
   # tod = models.CharField('Time Of Day', validators=[RegexValidator(regex='^[bsxyz]?$', message='error', code='nomatch')], max_length=1))
-  tod = models.CharField('Time Of Day', max_length=1, choices=TimeOfDay.choices, default=TimeOfDay.NO_TOD, blank=False,)
+  # tod = models.CharField('Time Of Day', max_length=1, choices=TimeOfDay.choices, default=TimeOfDay.NO_TOD, blank=False,)
+  tod = models.CharField('Time Of Day', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=TimeOfDay.choices, default=TimeOfDay.NO_TOD, blank=False,)
   dow = models.CharField('Day Of Week', max_length=2, choices=DayOfWeek.choices, default=DayOfWeek.SUNDAY, blank=False,)
   # dow = models.CharField('Day Of Week', max_length=60)
   title = models.CharField('Document Title', max_length=64, blank=False,)
   descriptor = models.CharField('Descriptor', max_length=120, blank=False,)
 
   def __str__(self):
-    return self.title
+    # return self.title
+    # return f"{self.dod}{self.tod} {self.title}"
+    return f"{self.descriptor} {self.title}"
 
 # class DocumentSerializer(serializers.ModelSerializer):
 #   class Meta:
@@ -82,10 +86,10 @@ class Translation(models.Model):
   def __str__(self):
     return self.tran_title
 
-class TranslationSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Translation
-    fields = ('id', 'lan', 'tran_title', 'descrip', 'blkc', 'subc', 'senc', 'xcrip', 'li', 'pubdate', 'version', 'document', 'eng_tran')
+# class TranslationSerializer(serializers.ModelSerializer):
+#   class Meta:
+#     model = Translation
+#     fields = ('id', 'lan', 'tran_title', 'descrip', 'blkc', 'subc', 'senc', 'xcrip', 'li', 'pubdate', 'version', 'document', 'eng_tran')
 
 # class Task(models.Model):
 #   role =

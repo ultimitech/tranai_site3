@@ -4,7 +4,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from .models import Translation, Document, TranslationSerializer
+from .models import Translation, Document
 from .forms import DocumentForm, TranslationForm
 # from rest_framework import viewsets
 # import sys
