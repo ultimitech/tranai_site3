@@ -41,7 +41,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
 #     return Document.objects.filter(document=self.kwargs['document_pk'])
 
 def index_documents(request):
-  document_list = Document.objects.all().order_by('title')
+  document_list = Document.objects.all().order_by('title')#sort by date instead of title
   return render(request, 'tranai/index_documents.html', {'document_list': document_list})
 
 def show_document(request, document_id):
@@ -55,9 +55,10 @@ def create_document(request):
     form = DocumentForm(request.POST)
     if form.is_valid():
       try:
-        form.save()
+        document = form.save()
         model = form.instance
-        return redirect('index-documents')
+        # return redirect('index-documents')
+        return redirect(f'/documents/{document.id}/')
       except:
         pass
     # print('post')
@@ -65,7 +66,7 @@ def create_document(request):
   elif request.method == 'GET':
     form = DocumentForm()
     # print('get')
-    return render(request, 'tranai/add_document.html', {'form': form})
+    return render(request, 'tranai/create_document.html', {'form': form})
 
 # def update_document(request, document_id):
 #   document = Document.objects.get(pk=document_id)
@@ -85,21 +86,25 @@ def update_document(request, document_id):
         form.save()
         model = form.instance
         print('Document id=' + document_id + ' updated successfully')
-        return redirect('index-documents')
+        return redirect(f'/documents/{document_id}/')
       except Exception as e:
         print('Document update failure: ' + e)
         pass
-  return render(request, 'tranai/update_document.html', {'form': form})
+    else:
+      print('form is not valid')
+  elif request.method == 'GET':
+    form = DocumentForm(initial={'dod': document.dod, 'tod': document.tod, 'dow': document.dow, 'descriptor': document.descriptor, 'title': document.title })
+    return render(request, 'tranai/update_document.html', {'document': document, 'form': form})
 
 # def delete_document(request, document_id):
 #   document = Document.objects.get(pk=document_id)
 #   document.delete()
 #   return redirect('index-documents')
 
-def destroy_document(request, document_id):
-  document = Document.objects.get(pk=document_id)
-  document.delete()
-  return render(request, 'tranai/show_document.html', {'document': document})
+# def destroy_document(request, document_id):
+#   document = Document.objects.get(pk=document_id)
+#   document.delete()
+#   return render(request, 'tranai/show_document.html', {'document': document})
 
 def delete_document(request, document_id):
   document = Document.objects.get(pk=document_id)
@@ -110,6 +115,7 @@ def delete_document(request, document_id):
     print('Document delete failure: ' + e)
     pass
   return redirect('index-documents')
+  # return redirect(f'/documents/')
 
 ###############################################################################
 # Translation
@@ -142,7 +148,7 @@ def create_translation(request):
       try:
         form.save()
         model = form.instance
-        return redirect('index-translations')
+        return redirect('index-all-translations')
       except:
         pass
     # print('post')
@@ -203,7 +209,8 @@ def update_document_translation(request, document_id, translation_id):
         form.save()
         model = form.instance
         print('Translation id=' + translation_id + ' updated successfully')
-        return redirect(f'/documents/{document_id}/translations/{translation_id}/')
+        # return redirect(f'/documents/{document_id}/translations/{translation_id}/')
+        return redirect(f'/documents/{document_id}/')
         # return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation})
         # return redirect('index-translations')
       except Exception as e:
@@ -223,7 +230,8 @@ def delete_document_translation(request, document_id, translation_id):
     print('Translation delete success')
   except Exception as e:
     print('Translation delete failure: ' + e)
-  return redirect(f'/documents/{document_id}/translations/')
+  # return redirect(f'/documents/{document_id}/translations/')
+  return redirect(f'/documents/{document_id}/')
 
 ###############################################################################
 # Task
