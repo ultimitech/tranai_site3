@@ -4,6 +4,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Task, Translation, Document
 from .forms import DocumentForm, TranslationForm, TaskForm
 # from rest_framework import viewsets
@@ -50,6 +51,7 @@ def show_document(request, document_id):
   # print (sys.stderr, translations)
   return render(request, 'tranai/show_document.html', {'document': document, 'translations': translations})
 
+@login_required
 def create_document(request):
   if request.method == 'POST':
     form = DocumentForm(request.POST)
@@ -261,7 +263,7 @@ def show_task(request, task_id):
 
 def update_task(request, task_id):
   task = Task.objects.get(pk=task_id)
-  form = TaskForm(initial={'role': task.role, 'active': task.active, 'ci': task.ci, 'place': task.place, 'translation': task.translation, 'user': task.user, 'status': task.status, 'ccs': task.css, 'ccs_k': task.ccs_k, 'ccs_m': task.ccs_m, 'vcs': task.vcs, 'vcs_a': task.vcs_a, 'vcs_c': task.vcs_c, 'vcs_t': task.vcs_t, 'vcs_p': task.vcs_p, 'ct': task.ct, 'vt': task.vt, 'majtes': task.majtes, 'tietes': task.tietes, 'notes': task.notes})
+  form = TaskForm(initial={'role': task.role, 'active': task.active, 'ci': task.ci, 'place': task.place, 'translation': task.translation, 'user': task.user, 'status': task.status, 'ccs': task.ccs, 'ccs_k': task.ccs_k, 'ccs_m': task.ccs_m, 'vcs': task.vcs, 'vcs_a': task.vcs_a, 'vcs_c': task.vcs_c, 'vcs_t': task.vcs_t, 'vcs_p': task.vcs_p, 'ct': task.ct, 'vt': task.vt, 'majtes': task.majtes, 'tietes': task.tietes, 'notes': task.notes})
   if request.method == 'POST':
     form = TaskForm(request.POST, instance=task)
     if form.is_valid():
@@ -276,7 +278,7 @@ def update_task(request, task_id):
     else:
       print('form is not valid')
   elif request.method == 'GET':
-    form = TaskForm(initial={'role': task.role, 'active': task.active, 'ci': task.ci, 'place': task.place, 'translation': task.translation, 'user': task.user, 'status': task.status, 'ccs': task.css, 'ccs_k': task.ccs_k, 'ccs_m': task.ccs_m, 'vcs': task.vcs, 'vcs_a': task.vcs_a, 'vcs_c': task.vcs_c, 'vcs_t': task.vcs_t, 'vcs_p': task.vcs_p, 'ct': task.ct, 'vt': task.vt, 'majtes': task.majtes, 'tietes': task.tietes, 'notes': task.notes})
+    form = TaskForm(initial={'role': task.role, 'active': task.active, 'ci': task.ci, 'place': task.place, 'translation': task.translation, 'user': task.user, 'status': task.status, 'ccs': task.ccs, 'ccs_k': task.ccs_k, 'ccs_m': task.ccs_m, 'vcs': task.vcs, 'vcs_a': task.vcs_a, 'vcs_c': task.vcs_c, 'vcs_t': task.vcs_t, 'vcs_p': task.vcs_p, 'ct': task.ct, 'vt': task.vt, 'majtes': task.majtes, 'tietes': task.tietes, 'notes': task.notes})
     return render(request, 'tranai/update_task.html', {'task': task, 'form': form})
 
 def delete_task(request, task_id):
@@ -293,3 +295,9 @@ def delete_task(request, task_id):
 def index_tasks(request):
   task_list = Task.objects.all()
   return render(request, 'tranai/index_tasks.html', {'task_list': task_list})
+
+def login(request):
+  if request.method == 'POST':
+    pass
+  else:
+    return render(request,'login.html')

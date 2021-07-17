@@ -18,6 +18,7 @@
       <th scope="col">CT</th>
       <th scope="col">M TEs</th>
       <th scope="col">T TEs</th>
+      <th scope="col">Translation</th>
       <th scope="col">User</th>
     </tr>
   </thead>
@@ -36,6 +37,7 @@
       <td>{{ task.ct }}</td>
       <td>{{ task.majtes }}</td>
       <td>{{ task.tietes }}</td>
+      <td>{{ task.translation }}</td>
       <td>{{ task.user }}</td>
       <td><a href="{% url 'update-task' task.id %}">Edit</a></td>
       <td><a href="{% url 'delete-task' task.id %}">Delete</a></td>

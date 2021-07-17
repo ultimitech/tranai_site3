@@ -1,6 +1,7 @@
 # from rest_framework_nested import routers
 # from .views import DocumentViewSet, TranslationViewSet
 from django.urls import path, re_path, include
+# from core import views
 # from django.conf.urls import include
 from . import views
 from django.conf import settings
@@ -49,7 +50,12 @@ urlpatterns = [
     path('delete_task/<task_id>', views.delete_task, name='delete-task'),
     path('tasks/', views.index_tasks, name='index-tasks'),
 
-
+    # path('private_place/', core_views.private_place),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/login/', views.LoginView.as_view(), name='login'),
+    # path('login',views.login,name='login')
+    path('members/',include('django.contrib.auth.urls')),
+    path('members/',include('members.urls')),
 
     # re_path(r'^', include(router.urls)),
     # re_path(r'^', include(documents_router.urls)),
