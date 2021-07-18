@@ -1,4 +1,5 @@
 from pathlib import Path
+from os import getenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,10 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-bw+i#eheb-ooje4xh44u#x9g$7q1!_084yjl_s6v8i9e1l&4$x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = getenv("IS_DEVELOPMENT", True)
 
-ALLOWED_HOSTS = ['*']
-
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    getenv("APP_HOST")
+]
 
 # Application definition
 
@@ -109,7 +113,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 # STATICFILES_DIR = ('/c/Users/sesterh/django/tranai_site3/tranai_site3/static',)
 # STATIC_ROOT = '/Users/sesterh/django/tranai_site3/tranai_site3/static/'
-STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
